@@ -12,15 +12,59 @@ class Lab1 {
     elemsItem = null
     elemsCount = 0
     //ui
-    staticElements = {}
+    staticElements = {
+        sum : this.sumInit(),
+        avg : this.avgInit(),
+        min : this.minInit(),
+        max : this.maxInit(),
+        inp : this.impInit()
+    }
 
     constructor(root) {
-        this.rootItem = root.firstChild
-        this.rootItem = root.lastChild
+        this.rootItem = root.children[0]
+        this.elemsItem = root.children[1]
         this.itemsCollector = document.querySelectorAll(this.cssClassName)
         this.generateHtmlElements()
     }
-
+    impInit(){
+        let temp = document.createElement('input')
+        temp.type       = 'number'
+        temp.value      = '0'
+        temp.className  = this.cssClassName
+        return temp
+    }
+    sumInit(){
+        let temp = document.createElement('input')
+        temp.type       = 'number'
+        temp.id         = 'sum'
+        temp.value      = '0'
+        temp.className  = this.cssClassFName
+        return temp
+    }
+    avgInit(){
+        let temp = document.createElement('input')
+        temp.type       = 'number'
+        temp.id         = 'avg'
+        temp.value      = '0'
+        temp.className  = this.cssClassFName
+        return temp
+    }
+    minInit(){
+        let temp = document.createElement('input')
+        temp.type       = 'number'
+        temp.id         = 'min'
+        temp.value      = '0'
+        temp.className  = this.cssClassFName
+        return temp
+    }
+    maxInit(){
+        let temp = document.createElement('input')
+        temp.type       = 'number'
+        temp.id         = 'max'
+        temp.value      = '0'
+        temp.className  = this.cssClassFName
+        return temp
+    }
     sum(items){
         let x = 0
         for (let n in items) {
@@ -59,21 +103,15 @@ class Lab1 {
         }
     }
     generateHtmlElements(){
-        this.staticElements = {
-            sum : this.rootItem.createElement("input",{value:0,id:"sum",class:this.cssClassFName}),
-            avg : this.rootItem.createElement("input",{value:0,id:"avg",class:this.cssClassFName}),
-            min : this.rootItem.createElement("input",{value:0,id:"min",class:this.cssClassFName}),
-            max : this.rootItem.createElement("input",{value:0,id:"max",class:this.cssClassFName}),
-            inp : this.elemsItem.createElement("input",{value:0,class:this.cssClassName})
-        }
-
         this.rootItem.appendChild(this.staticElements.sum)
         this.rootItem.appendChild(this.staticElements.avg)
         this.rootItem.appendChild(this.staticElements.min)
         this.rootItem.appendChild(this.staticElements.max)
 
+        let t = []
         for (this.elemsCount; this.elemsCount < 3; this.elemsCount++) {
-            this.elemsItem.appendChild(this.staticElements.inp)
+            t.push(this.staticElements.inp)
         }
+        this.elemsItem.append(...t)
     }
 }
