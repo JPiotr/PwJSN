@@ -1,6 +1,10 @@
 let lab1 = null
+let controler = 0
 function Lab1Init(root) {
     lab1 = new Lab1(root)
+}
+function Lab1AddField(){
+    lab1.addItem()
 }
 
 class Lab1 {
@@ -21,10 +25,14 @@ class Lab1 {
     }
 
     constructor(root) {
-        this.rootItem = root.children[0]
-        this.elemsItem = root.children[1]
-        this.itemsCollector = document.querySelectorAll(this.cssClassName)
-        this.generateHtmlElements()
+        if(controler === 0){
+            controler += 1
+            this.rootItem = root.children[0]
+            this.elemsItem = root.children[1]
+            this.itemsCollector = document.querySelectorAll(this.cssClassName)
+            this.generateHtmlElements()
+        }
+
     }
     impInit(){
         let temp = document.createElement('input')
@@ -113,5 +121,8 @@ class Lab1 {
             t.push(this.staticElements.inp)
         }
         this.elemsItem.append(...t)
+    }
+    addItem(){
+        this.elemsItem.append(this.staticElements.inp)
     }
 }

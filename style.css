@@ -1,0 +1,24 @@
+#lab1 {
+    display: flex;
+    flex-direction: column;
+    border: solid 2px black;
+    align-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 200px;
+
+
+}
+
+#root {
+    display: flex;
+    border: solid revert 2px;
+    align-content: space-around;
+    flex-wrap: wrap;
+}
+#elems {
+    display: flex;
+    align-content: space-around;
+    border: solid indigo 2px;
+    flex-wrap: wrap;
+}
