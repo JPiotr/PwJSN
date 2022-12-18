@@ -3,19 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <title>PwJSN</title>
-    <script type="application/javascript" src="Lab1/core.js"></script>
+<!--    <script type="application/javascript" src="Lab1/core.js"></script>-->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
-        <h2>Controls</h2>
-        <input type="button" value="Dodaj Pole" onclick="Lab1AddField()">
+    <div id="lab1">
+        <h1>LAB1</h1>
+        <div id="root">
+            <h2 id="min" class="result">Min:</h2>
+            <h2 id="max" class="result">Max:</h2>
+            <h2 id="sum" class="result">Sum:</h2>
+            <h2 id="avg" class="result">Avg:</h2>
+        </div>
+        <div id="controls">
+            <input type="button" value="Dodaj Pole" onclick="dodajpole()">
+            <input type="button" value="Usuń Pole" onclick="usunpole()">
+        </div>
+        <div id="elems">
+            <div id="inputs">
+                <input type="text" id="temp" value="0">
+                <input type="text" value="0">
+                <input type="text" value="0">
+            </div>
+        </div>
     </div>
-    <div id="lab1" onclick="Lab1Init(this)">
 
-        <div id="root"></div>
-        <div id="elems"></div>
+    <div id="lab2">
+        <div id="slider">
+            <div class="slides">
+                <img src="http://picsum.photos/seed/picsum/600/400" alt="">
+                <img src="http://picsum.photos/seed/picsum/600/400" alt="">
+                <img src="http://picsum.photos/seed/picsum/600/400" alt="">
+                <img src="http://picsum.photos/seed/picsum/600/400" alt="">
+                <img src="http://picsum.photos/seed/picsum/600/400" alt="">
+                <img src="http://picsum.photos/seed/picsum/600/400" alt="">
+            </div>
+        </div>
+        <main>
+        </main>
     </div>
 
+
+
+
+    <script type="text/javascript" src="Lab1/core.js"></script>
+    <script type="text/javascript" src="Lab2/core.js"></script>
 </body>
 </html>

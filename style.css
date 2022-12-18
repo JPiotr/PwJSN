@@ -1,24 +1,43 @@
+body{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
 #lab1 {
     display: flex;
     flex-direction: column;
     border: solid 2px black;
-    align-content: space-around;
-    align-items: center;
+    justify-content: space-around;
+    align-items: stretch;
     flex-wrap: wrap;
     min-height: 200px;
+}
 
+#lab2{
+    min-height: 500px;
+    min-width: 1200px;
+    border: solid indigo 1px;
+}
 
+.result{
+    min-width: 15vw;
+    flex-shrink: 3;
 }
 
 #root {
     display: flex;
-    border: solid revert 2px;
-    align-content: space-around;
+    align-items: center;
+    justify-content: space-around;
     flex-wrap: wrap;
 }
-#elems {
+#inputs {
     display: flex;
-    align-content: space-around;
+    justify-content: space-around;
+    align-items: center;
     border: solid indigo 2px;
     flex-wrap: wrap;
+    align-self: center;
+    min-height: 15vh;
 }
