@@ -35,9 +35,11 @@ function dodajpole(){
     v.value = 0;
     v.addEventListener("input",przelicz);
     document.querySelector("#inputs").appendChild(v);
+    przelicz();
 }
 function usunpole(){
     document.querySelector("#inputs").removeChild(document.querySelector("#inputs").lastChild);
+    przelicz();
 }
 
 
