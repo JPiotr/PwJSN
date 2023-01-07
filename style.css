@@ -31,6 +31,15 @@ body{
 
 }
 
+#lab3{
+    padding: 5px;
+    min-height: 500px;
+    min-width: 500px;
+    max-width: 700px;
+    border: solid sandybrown 1px;
+
+}
+
 .result{
     min-width: 15vw;
     flex-shrink: 3;
@@ -104,4 +113,19 @@ body{
     100% {
         transform: translateX(-3000px);
     }
+}
+/* =============================== */
+
+#lab3 > div{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    align-self: center;
+    min-height: 15vh;
+    margin-top: 10px;
+    margin-down: 10px
+}
+audio{
+    min-width: 200px;
 }
