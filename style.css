@@ -28,7 +28,7 @@ body{
     min-height: 500px;
     min-width: 1200px;
     border: solid indigo 1px;
-
+    margin-bottom: 15px;
 }
 
 #lab3{
