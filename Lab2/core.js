@@ -1,25 +1,27 @@
-const timeout = 3000; //timeout from animation
-const slides = document.querySelector('.slides').querySelectorAll('img');
-setInterval(changeSlideAuto, timeout);
+const sliders = document.querySelector(".slide");
 
-let cssVar = parseInt(getComputedStyle(document.querySelector(':root')).getPropertyValue('--ACCounter'));
+const main = document.querySelector('main')
+const timeoutRef = setTimeout(
+    () => {
+        main.innerHTML='From setTimeout'
+    },
+    2000
+)
 
-function changeSlide(slideId,x){
-    document.querySelector('.animate-me').classList.remove('animate-me');
-    document.querySelector('.actualSlide').classList.remove('actualSlide');
-    slides[slideId-1].classList.add('animate-me');
-    x.classList.add('actualSlide');
-}
 
-function changeSlideAuto(){
-    console.log(cssVar);
-    if(cssVar == slides.length - 1){
-        cssVar = 0;
-    }
-    else{
-        cssVar += 1;
-    }
+let licznik = 0
+const intervalRef = setInterval(
+    () => {
+        main.innerHTML='From interval' + licznik++
+    },
+    2000
+)
 
-    document.querySelector(':root').style.setProperty('--ACCounter', cssVar);
+// kasujemy setInterval
+// clearInterval(intervalRef)
 
-}
+// kasujemy setTimeout
+clearTimeout(timeoutRef)
+
+
+// window.requestAnimationFrame
