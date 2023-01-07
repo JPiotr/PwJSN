@@ -1,3 +1,8 @@
+:root{
+    --nextImgTop : -101%;
+    --ACCounter : 0;
+}
+
 body{
     display: flex;
     flex-direction: column;
@@ -47,10 +52,9 @@ body{
     margin-top: 10px;
     margin-down: 10px;
 }
-
+/* ============================= */
 #slider {
-    /*margin: auto;*/
-    overflow: hidden;
+    /*overflow: hidden;*/
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -67,14 +71,25 @@ body{
 .actualSlide{
     position: relative;
 }
-.nextSlide{
-    left: 600px;
-    position: relative;
-}
-#beforeStack{
-    visibility: hidden;
-}
-#afterStack{
-    visibility: hidden;
 
+.animate-me {
+    left: 600px;
+    top: calc(var(--nextImgTop) * var(--ACCounter));
+    position: relative;
+    visibility: visible;
+    animation-name: slide;
+    animation-duration: 2s;
+    animation-delay: 0.5s;
+    animation-timing-function: ease-in;
+}
+
+@keyframes slide {
+    0%{
+        visibility: visible;
+        transform: translateX(0);
+    }
+    100%{
+        transform: translateX(-102%);
+        visibility: hidden;
+    }
 }
