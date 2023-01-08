@@ -37,9 +37,18 @@ body{
     min-width: 500px;
     max-width: 700px;
     border: solid sandybrown 1px;
+    margin-bottom: 15px;
 
 }
 
+#lab7{
+    width: 1000px;
+    max-width: 1400px;
+    min-height: 800px;
+    border: solid violet 1px;
+    margin-bottom: 15px;
+}
+/* ============Lab1============= */
 .result{
     min-width: 15vw;
     flex-shrink: 3;
@@ -61,12 +70,12 @@ body{
     margin-top: 10px;
     margin-down: 10px;
 }
-/* ============================= */
+/* ============Lab2============= */
 #slider {
     width: 600px;
     height: 400px;
     margin: 100px auto 0 auto;
-    /*overflow: hidden;*/
+    overflow: hidden;
 }
 #slider .slides {
     display: flex;
@@ -114,7 +123,7 @@ body{
         transform: translateX(-3000px);
     }
 }
-/* =============================== */
+/* ============Lab3============= */
 
 #lab3 > div{
     display: flex;
@@ -128,4 +137,29 @@ body{
 }
 audio{
     min-width: 200px;
+}
+/* ============Lab4============= */
+
+/* ============Lab5============= */
+
+/* ============Lab6============= */
+
+/* ============Lab7============= */
+#chart{
+    max-width: 1000px;
+    max-height: 700px;
+}
+#cards{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 15px;
+    min-height: 700px;
+}
+.Wcard{
+    min-height: 200px;
+    min-width: 300px;
+    border: solid 1px black;
+    border-radius: 50px;
 }
