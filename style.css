@@ -146,8 +146,7 @@ audio{
 
 /* ============Lab7============= */
 #chart{
-    max-width: 1000px;
-    max-height: 700px;
+
 }
 #cards{
     display: flex;
@@ -158,8 +157,20 @@ audio{
     min-height: 700px;
 }
 .Wcard{
-    min-height: 200px;
-    min-width: 300px;
+    display: flex;
+    flex-direction: row;
+    height: 200px;
+    width: 300px;
     border: solid 1px black;
     border-radius: 50px;
+}
+.Wicon{
+    width: 40%;
+    height: 100%;
+    border-right: solid rebeccapurple 1px;
+}
+
+.WContent{
+    width: 60%;
+    height: 100%;
 }

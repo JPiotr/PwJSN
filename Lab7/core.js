@@ -6,7 +6,7 @@ new Chart(ctx, {
         labels: ['Pon', 'Wt', 'Śr', 'Czw', 'Pt', 'Sob', 'Niedz'],
         datasets: [{
             label: 'Stopnie (C)',
-            data: [12, 19, 3, 5, 2, 12, 3],
+            data: [12, 19, 3, 5, 2, 12, -3],
             borderWidth: 1
         }]
     },
