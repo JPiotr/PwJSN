@@ -114,10 +114,6 @@ body{
 .slides{
     position: relative;
 }
-.actual{
-    visibility: visible;
-    /*transform: translateX(-600px);*/
-}
 i{
     background-color: rgba(200,200,200,40%);
     position: relative;
@@ -138,30 +134,7 @@ i{
     cursor: pointer;
     /*transform: translateX(600px);*/
 }
-@keyframes pociag-w-lewo {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-3000px);
-    }
-}
-@keyframes next {
-    0% {
-        transform: translateX(600px);
-    }
-    100% {
-        transform: translateX(-3000px);
-    }
-}
-@keyframes prev {
-    0% {
-        transform: translateX(600px);
-    }
-    100% {
-        transform: translateX(-3000px);
-    }
-}
+
 /* ============Lab3============= */
 
 #lab3 > div{
@@ -172,7 +145,7 @@ i{
     align-self: center;
     min-height: 15vh;
     margin-top: 10px;
-    margin-down: 10px
+    margin-bottom: 10px
 }
 audio{
     min-width: 200px;
