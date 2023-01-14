@@ -77,12 +77,39 @@ body{
     margin: 100px auto 0 auto;
     overflow: hidden;
 }
+.slide{
+    min-width: 600px;
+    min-height: 400px;
+    background-color: rebeccapurple;
+}
 #slider .slides {
     display: flex;
-    animation-name: pociag-w-lewo;
-    animation-duration: 4s;
-    animation-delay: 1s;
-    animation-timing-function: ease-in-out;
+    position: relative;
+    bottom: 7%;
+    /*animation-name: pociag-w-lewo;*/
+    /*animation-duration: 4s;*/
+    /*animation-delay: 1s;*/
+    /*animation-timing-function: ease-in-out;*/
+}
+.dot{
+    margin: 2px;
+    width: 10px;
+    height: 10px;
+    border-radius: 10px;
+    background-color: green;
+    cursor: pointer;
+}
+#main{
+    z-index: 300;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    height: 10px;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: -20%;
 }
 .slides{
     position: relative;
@@ -91,12 +118,24 @@ body{
     visibility: visible;
     /*transform: translateX(-600px);*/
 }
-.next{
+i{
+    background-color: rgba(200,200,200,40%);
+    position: relative;
+    top: 50%;
+    z-index: 200;
+    font-size: x-large;
+    font-weight: bold;
+}
+#next{
     visibility: visible;
+    cursor: pointer;
+    left: 90%;
     /*transform: translateX(-600px);*/
 }
-.prev{
+#prev{
+    left: 5%;
     visibility: visible;
+    cursor: pointer;
     /*transform: translateX(600px);*/
 }
 @keyframes pociag-w-lewo {
