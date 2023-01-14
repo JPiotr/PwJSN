@@ -80,7 +80,11 @@ body{
 .slide{
     min-width: 600px;
     min-height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background-color: rebeccapurple;
+    font-size: xx-large;
 }
 #slider .slides {
     display: flex;
