@@ -29,9 +29,9 @@ function przelicz(){
     Davg.innerHTML = "Avg: " + avg;
 
 }
-
+const temp = document.querySelector("#temp");
 function dodajpole(){
-    let v = document.querySelector("#temp").cloneNode();
+    let v = temp.cloneNode();
     v.value = 0;
     v.addEventListener("input",przelicz);
     document.querySelector("#inputs").appendChild(v);
@@ -51,6 +51,6 @@ for (i = 0; i<=x.length; i++){
     catch (e){
 
     }
-
-
 }
+
+przelicz();
