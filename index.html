@@ -5,10 +5,10 @@
     <title>PwJSN</title>
 <!--    <script type="application/javascript" src="Lab1/core.js"></script>-->
     <link rel="stylesheet" href="style.css">
-    <script type="text/javascript" src="Lab5/core.js"></script>
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-<body onload="onStart()">
+<body>
     <div id="lab1">
         <h1>LAB1</h1>
         <div id="root">
@@ -98,8 +98,16 @@
     <div id="lab5">
         <h1>LAB 5</h1>
         <div id="lab5Content">
-            <h3>Solution in console log</h3>
+            <div id="lab5ContentDetails">
+                <button id="startAsync">Oblicz</button>
+                <label>Ile razy wykonać oblicznia?</label>
+                <input id="asyncStep" type="number" min="2" max="100" step="2" value="2"/>
+                <label>Rozmiar tablicy danych:</label>
+                <input id="dataSize" type="number" min="2" max="1000" step="1" value="2"/>
+            </div>
+            <canvas id="chart5Times"></canvas>
         </div>
+        <canvas id="chart5"></canvas>
     </div>
 
     <div id="lab6">
@@ -148,6 +156,7 @@
     <script type="text/javascript" src="Lab2/core.js"></script>
     <script type="text/javascript" src="Lab3/core.js"></script>
     <script type="text/javascript" src="Lab4/core.js"></script>
+    <script type="text/javascript" src="Lab5/core.js"></script>
 <!--    <script type="text/javascript" src="Lab6/core.js"></script>-->
     <script type="text/javascript" src="Lab7/core.js"></script>
 </body>

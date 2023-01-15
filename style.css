@@ -42,8 +42,8 @@ body{
 }
 #lab5{
     padding: 5px;
-    min-height: 20vh;
-    min-width: 80vw;
+    min-height: 50vh;
+    min-width: 90vw;
     border: solid greenyellow 1px;
     margin-bottom: 15px;
 }
@@ -167,7 +167,18 @@ audio{
 /* ============Lab4============= */
 
 /* ============Lab5============= */
-
+#lab5Content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#chart5Times{
+    max-width: 20vw;
+    max-height: 30vh;
+}
+#chart5{
+    max-height: 50vh;
+}
 /* ============Lab6============= */
 
 /* ============Lab7============= */
