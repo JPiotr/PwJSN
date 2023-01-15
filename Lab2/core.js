@@ -82,13 +82,13 @@ let intervalRef = setInterval(
 )
 
 slider.addEventListener("mouseenter",()=>{
-    clearTimeout(intervalRef);
+    clearInterval(intervalRef);
 });
 next.addEventListener("mouseenter",()=>{
-    clearTimeout(intervalRef);
+    clearInterval(intervalRef);
 });
 prev.addEventListener("mouseenter",()=>{
-    clearTimeout(intervalRef);
+    clearInterval(intervalRef);
 });
 
 slider.addEventListener("mouseleave",()=>{
