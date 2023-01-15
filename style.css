@@ -68,7 +68,7 @@ body{
     align-self: center;
     min-height: 15vh;
     margin-top: 10px;
-    margin-down: 10px;
+    margin-bottom: 10px;
 }
 /* ============Lab2============= */
 #slider {
@@ -153,6 +153,9 @@ i{
 }
 audio{
     min-width: 200px;
+}
+.recStart{
+    background-color: blue;
 }
 /* ============Lab4============= */
 

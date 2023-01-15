@@ -52,7 +52,7 @@
 
     <div id="lab3">
         <h1>LAB3</h1>
-        <div>
+        <div id="audios">
             <audio src="Lab3/sounds/clap.wav" controls id="s1"></audio>
             <audio src="Lab3/sounds/hihat.wav" controls id="s2"></audio>
             <audio src="Lab3/sounds/boom.wav" controls id="s3"></audio>
@@ -62,6 +62,32 @@
             <audio src="Lab3/sounds/snare.wav" controls id="s7"></audio>
             <audio src="Lab3/sounds/tink.wav" controls id="s8"></audio>
             <audio src="Lab3/sounds/tom.wav" controls id="s9"></audio>
+        </div>
+<!--        todo: add end loop logic (optional) -->
+        <button id="newRec">Add Record</button>
+        <button id="delRec">Delete Record</button>
+        <button id="playSelected">Play Selected</button>
+        <button id="stopSelected" style="display:none">Stop Selected (loop)</button>
+        <label style="display:none">Chunk Size (for loop)</label>
+        <input id="chunkSize" type="number" max="25" min="5" value="10" style="display:none"/>
+        <div>
+            <h5>Metronom</h5>
+            <button id="metronomOn">ON</button>
+            <button id="metronomOff">OFF</button>
+            <input id="freq" type="number" max="16000" min="250" value="1000"/>
+        </div>
+        <div id="records">
+            <div class="rec">
+                <label style="display:none">Loop?</label>
+                <input name="loop" type="checkbox" class="loop" style="display:none"/>
+                <label>Select</label>
+                <input type="checkbox" class="selected"/>
+                <button class="recStart">record</button>
+                <button class="recPlay">play</button>
+                <button class="recStop">stop</button>
+                <button class="recDel">reset</button>
+                <div class="recData"></div>
+            </div>
         </div>
     </div>
 
