@@ -1,5 +1,7 @@
 let notes = [];
 let noteid = 1000;
+let localMemo = window.localStorage;
+
 class Note {
     title = '';
     content = '';
