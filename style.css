@@ -40,6 +40,13 @@ body{
     margin-bottom: 15px;
 
 }
+#lab5{
+    padding: 5px;
+    min-height: 20vh;
+    min-width: 80vw;
+    border: solid greenyellow 1px;
+    margin-bottom: 15px;
+}
 
 #lab7{
     width: 1000px;

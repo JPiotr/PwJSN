@@ -1,10 +1,11 @@
+let lab5Content = document.querySelector("#lab5Content");
 const asyncAdd = async (a,b) => {
     if (typeof a !== 'number' || typeof b !== 'number') {
         return Promise.reject('Argumenty muszą mieć typ number!')
     }
     return new Promise((resolve, reject) => {
         setTimeout(() =>{
-            resolve(a+b)
+            resolve(a+b);
         }, 100)
     })
 }
@@ -23,12 +24,13 @@ async function addNumbersWMark(a,b) {
         return 0;
     });
 }
-
+let nums = [];
+let addedNums = [];
 async function addMultipleNumbers(i){
     // let nums = [[1,2,3,4,5,6,7,8,9,10],[1,2,3,4,5,6,7,8,9,10]]
-    let nums = []
+    nums = []
     // console.log(nums)
-    let addedNums = []
+    addedNums = []
     const ii = parseInt(i)
     for(let x = 0;x<=1;x++){
         nums.push(generateNumbers(ii))
