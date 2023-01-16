@@ -5,7 +5,7 @@ function przelicz(){
     let Davg = document.querySelector("#avg");
     let Dsum = document.querySelector("#sum");
 
-    let ins = document.querySelectorAll("input[type='text']");
+    let ins = document.querySelectorAll(".inp");
     let numbers = [];
 
     let sum = 0;
@@ -32,6 +32,7 @@ function przelicz(){
 const temp = document.querySelector("#temp");
 function dodajpole(){
     let v = temp.cloneNode();
+    v.id = "";
     v.value = 0;
     v.addEventListener("input",przelicz);
     document.querySelector("#inputs").appendChild(v);
