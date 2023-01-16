@@ -53,7 +53,7 @@ class NoteDOM {
         }
 
         this.container = "<div class='noteContainer' style='background-color: "
-            + this.Note.color +
+            + Note.color +
             "'>" +
             "<input type='checkbox' class='pin'>" +
             "<input class='alertDate' type='date'/>" +
