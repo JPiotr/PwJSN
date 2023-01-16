@@ -83,6 +83,7 @@ function genLabels2(i){
 async function onStart() {
     let y = document.querySelector("#dataSize").value;
     let x = document.querySelector("#asyncStep").value;
+    x *= 2;
     generateLabels(y);
     genLabels2(x);
     for (let p = 0; p < x; p++) {
