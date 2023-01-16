@@ -120,7 +120,7 @@ async function onStart() {
 async function StartAsync(){
     labels = [];
     AsyncNames = [];
-
+    AsyncTimes = [];
     chartt5.destroy()
     chartt5Times.destroy();
 
