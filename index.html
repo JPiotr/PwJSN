@@ -97,17 +97,22 @@
             <h3>Stwórz Notkę</h3>
             <div id="lab4NoteColorContainer">
             <label for="lab4NoteColor">Kolor Notatki</label>
-                <input type="color" id="lab4NoteColor"/>
+                <input type="color" id="lab4NoteColor" value="#F0F0F0"/>
             </div>
             <div id="lab4NoteTemp" class="note">
                 <div class="tempTitle">
-                    <input type="text" class="noteTitle"/>
+                    <input type="text" class="noteTitle" placeholder="Tytuł"/>
                     <input type="checkbox" class="notePin"/>
                 </div>
-                <input type="text" class="noteContent"/>
+                <textarea class="noteContent" placeholder="Twoja notatka"></textarea>
+                <div class="tagsContainer">
+                    <span>Tags:</span>
+                    <div class="noteTags"></div>
+                </div>
             </div>
             <button type="button" id="lab4AddNewNote">Dodaj Notkę</button>
         </div>
+        <h3>Notatki:</h3>
         <div id="lab4Notes"></div>
     </div>
 

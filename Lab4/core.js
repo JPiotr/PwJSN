@@ -1,6 +1,15 @@
 let notes = [];
 let noteid = 1000;
+
+//todo: More Options!
+
 let localMemo = window.localStorage;
+const NoteContainer = document.querySelector("#lab4Notes");
+const Notes = [];
+const tempNote = document.querySelector("#lab4NoteTemp");
+const addNoteBtn = document.querySelector("#lab4AddNewNote");
+
+addNoteBtn.addEventListener("click",addNote)
 
 class Note {
     title = '';
@@ -10,18 +19,19 @@ class Note {
     timestamp = undefined;
     tags = [];
     alertDate = undefined;
-    parent = document;
+    parent = NoteContainer;
+    // borderColor = "#FFFFFF";
     id = 0;
 
-    constructor(title, content, color, pin, Parent) {
+    constructor(title, content, color, pin) {
         this.title = title;
         this.content = content;
         this.pin = pin;
         this.timestamp = Date.now();
-        this.parent = Parent;
         this.id = noteid;
         noteid ++;
         this.color = color;
+        // this.borderColor = this.color + "80";
         if(pin === true){
             this.id -= 1000;
         }
@@ -35,40 +45,61 @@ class Note {
 }
 
 class NoteDOM {
-    Note = new Note("test","test","#000",false,document);
-    container = "<div class='noteContainer' style='background-color: "
-        + this.Note.color +
-        "'>" +
-        "<input type='checkbox' class='pin'>" +
-        "<input class='alertDate' type='date'/>" +
-        "<input class='textArea' type='text'/>" +
-        "<div class='tags'></div>" +
-        "</div>"
+    dom = document.createElement("div");
+    pin = document.createElement("input");
+    content = document.createElement("input");
+    title = document.createElement("input");
+    tagsContainer = document.createElement("div");
+    Note = new Note("",false,"","");
+    color = document.querySelector("#lab4NoteColor").value;
 
-    doc = document.createElement('div');
+    constructor(note = null) {
 
-    constructor(Note = null) {
-        if(Note != null){
-            this.Note = Note;
+        this.dom = tempNote.cloneNode(true);
+        this.dom.id = "";
+        this.dom.style.backgroundColor = this.color;
+
+        // this.dom.style.borderColor = this.Note.borderColor;
+        this.pin = this.dom.querySelector(".notePin");
+        this.content = this.dom.querySelector(".noteContent");
+        this.title = this.dom.querySelector(".noteTitle");
+        this.tagsContainer = this.dom.querySelector(".tagsContainer");
+
+        if(note != null){
+            this.Note = note;
+        }
+        else {
+            if(this.pin.checked){
+                this.Note = new Note(
+                    this.title.value,
+                    this.content.value,
+                    this.color,
+                    true,
+                )
+            }
+            else{
+                this.Note = new Note(
+                    this.title.value,
+                    this.content.value,
+                    this.color,
+                    false,
+                )
+            }
         }
 
-        this.container = "<div class='noteContainer' style='background-color: "
-            + Note.color +
-            "'>" +
-            "<input type='checkbox' class='pin'>" +
-            "<input class='alertDate' type='date'/>" +
-            "<input class='textArea' type='text'/>" +
-            "<div class='tags'></div>" +
-            "</div>";
-
-        this.doc = document.createElement('div');
-        this.doc.innerHTML = this.container;
+        NoteContainer.append(this.dom);
     }
 }
 
-function addNodes(){
-    notes.sort((a,b) => {if(a.id > b.id){return 1}if (a.id < b.id){return -1} return 0})
-    for (const note in notes) {
-        document.getElementById('body').append(note.doc);
+function updateNotesUI(){
+    let sortedNotes = Notes.sort((a,b) => {if(a.Note.id > b.Note.id){return 1}if (a.Note.id < b.Note.id){return -1} return 0});
+    NoteContainer.innerHTML = "";
+    for (const note of sortedNotes) {
+        NoteContainer.append(note.dom);
     }
+}
+
+function addNote(){
+    Notes.push(new NoteDOM())
+    updateNotesUI()
 }

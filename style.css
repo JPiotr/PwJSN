@@ -183,15 +183,15 @@ audio{
     flex-direction: column;
     min-height: 40vh;
     min-width: 25vw;
-    background: darkgray;
-    border: solid 4px gray;
+    /*background: darkgray;*/
+    border: 4px solid ;
     border-radius: 20px;
     margin: 15px;
 }
 .tempTitle{
     min-width: 30%;
     min-height: 15%;
-    border-bottom: solid gray;
+    border-bottom: solid;
     display: flex;
 }
 .noteTitle{
@@ -202,18 +202,31 @@ audio{
     /*border: none;*/
     background-color: inherit;
     border: hidden;
-    border-right: gray 3px solid;
+    border-right: 3px solid;
 }
 .notePin{
+    min-width: 10vw;
     flex-grow: 4;
+    border-radius: 0 5px 0 0;
 }
 .noteContent{
     flex-grow: 3;
     justify-self: start;
     margin: 2%;
-    border-radius: 5%;
-    text-align: center;
-
+    border-radius:0 0 5% 5%;
+    /*text-align: center;*/
+    padding: 2px;
+}
+.tagsContainer{
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+.noteTags{
+    /*flex-grow: 2;*/
+    min-width: 46%;
+    padding: 0 2% 0 2% ;
+    background-color: white;
 }
 /* ============Lab5============= */
 #lab5Content{
