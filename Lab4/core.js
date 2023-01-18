@@ -103,3 +103,16 @@ function addNote(){
     Notes.push(new NoteDOM())
     updateNotesUI()
 }
+
+function togglePin(){
+    //todo: togglePin
+}
+function deleteNote(){
+    //todo: for Note container run from Note
+}
+function searchData(){
+    
+}
+function saveNote(Note) {
+
+}
