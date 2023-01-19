@@ -1,7 +1,4 @@
-let notes = [];
 let noteid = 1000;
-
-//todo: More Options!
 
 let localMemo = window.localStorage;
 const NoteContainer = document.querySelector("#lab4Notes");
@@ -190,3 +187,5 @@ function saveNote(Note) {
 //     note.Note.tags = note.Note.tags.push(...this.tagsContainer.value.split(','));
 //     updateNotesUI()
 // }
+
+//todo: add some async save and load notes
