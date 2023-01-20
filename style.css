@@ -25,8 +25,8 @@ body{
 
 #lab2{
     padding: 5px;
-    min-height: 500px;
-    min-width: 1200px;
+    min-height: 80vh;
+    min-width: 85vw;
     border: solid indigo 1px;
     margin-bottom: 15px;
 }
@@ -65,6 +65,17 @@ body{
     max-width: 1400px;
     min-height: 800px;
     border: solid violet 1px;
+    margin-bottom: 15px;
+}
+
+#lab6{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 90vw;
+    min-height: 90vh;
+    border: solid blueviolet 3px;
     margin-bottom: 15px;
 }
 /* ============Lab1============= */
@@ -244,7 +255,11 @@ audio{
 }
 
 /* ============Lab6============= */
-
+#lab6Canvas{
+    width: 85vw;
+    height: 85vh;
+    border: greenyellow solid 5px;
+}
 /* ============Lab7============= */
 #chart{
 
