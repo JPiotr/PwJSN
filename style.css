@@ -256,8 +256,8 @@ audio{
 
 /* ============Lab6============= */
 #lab6Canvas{
-    width: 85vw;
-    height: 85vh;
+    /*width: 85vw;*/
+    /*height: 85vh;*/
     border: greenyellow solid 5px;
 }
 /* ============Lab7============= */
