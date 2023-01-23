@@ -140,13 +140,13 @@ function drawEnv(){
                 if(res<0)res *= -1;
 
                 if(res < y.y){
-                    // y.ctx.beginPath();
-                    // y.ctx.moveTo(x.x,x.y)
-                    // y.ctx.lineTo(y.x,y.y)
-                    // y.ctx.closePath()
-                    // y.ctx.lineWidth = 4;
-                    // y.ctx.lineJoin = "round"
-                    // y.ctx.stroke()
+                    y.ctx.beginPath();
+                    y.ctx.moveTo(x.x,x.y)
+                    y.ctx.lineTo(y.x,y.y)
+                    y.ctx.closePath()
+                    y.ctx.lineWidth = 4;
+                    y.ctx.lineJoin = "round"
+                    y.ctx.stroke()
                 }
             }
         })
