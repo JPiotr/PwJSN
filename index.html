@@ -136,7 +136,30 @@
 
     <div id="lab6">
         <h1>Lab6</h1>
-        <canvas id="lab6Canvas" width="4000" height="2000"></canvas>
+        <div id="lab6controls">
+            <button id="lab6Start">Start</button>
+            <button id="lab6Stop">Stop</button>
+            <label for="CWidth">Canvas Width</label>
+            <input id="CWidth" type="range" min="600" max="4000" value="1500" step="10">
+            <label for="CHeight">Canvas Heigth</label>
+            <input id="CHeight" type="range" min="600" max="2000" value="800" step="10">
+            <label>How Many Orbs?</label>
+            <input id="orbsNum" type="number" min="1" max="180" value="10">
+            <label>Mouse Force</label>
+            <input id="MForce" type="range" min="10" max="200" value="20" step="5">
+            <div id="lab6More">
+                <label>Fields Visible</label>
+                <input id="lab6FV" type="checkbox">
+                <input id="LOrbsNum" type="number" step="1" min="1" max="5" disabled>
+                <input id="BOrbsNum" type="number" step="1" min="1" max="20" disabled>
+                <input id="SOrbsNum" type="number" step="1" min="1" max="25" disabled>
+                <input id="MOrbsNum" type="number" step="1" min="1" max="50" disabled>
+                <input id="ForceDiv" type="number" step="2" min="2" max="10" value="2">
+            </div>
+        </div>
+        <canvas id="lab6Canvas" width="1500" height="800"></canvas>
+        <div id="wV">W: 1500</div>
+        <div id="hV">H: 800</div>
     </div>
 
     <div id="lab7">

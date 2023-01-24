@@ -1,29 +1,67 @@
 const canvasLab6 = document.querySelector("#lab6Canvas");
-const Olife = 400;
-const Oforce = 10;
+const c6Start = document.querySelector("#lab6Start");
+const c6Stop = document.querySelector("#lab6Stop");
+const c6rangeW = document.querySelector("#CWidth");
+const c6rangeH = document.querySelector("#CHeight");
+const hV = document.querySelector("#hV");
+const wV = document.querySelector("#wV");
+const fieldsV = document.querySelector("#lab6FV");
+const orbsNumber = document.querySelector("#orbsNum");
+const LON = document.querySelector("#LOrbsNum");
+const BON = document.querySelector("#BOrbsNum");
+const SON = document.querySelector("#SOrbsNum");
+const MON = document.querySelector("#MOrbsNum");
+const FDiv = document.querySelector("#ForceDiv");
+const MForce = document.querySelector("#MForce");
+
+let FdivNum = FDiv.value;
+let MF = MForce.value;
+let InitialOrbsNumber = orbsNumber.value;
+let Olife = canvasLab6.width/10;
+
+let Oforce = Olife/FdivNum;
 
 const Oforces = {
     Large : {
         max: Oforce,
         min: (Oforce/4)+1,
-        color : "#fd0606"
+        color : "#fd0606",
+        colorF : "rgba(253,6,6,0.65)",
+        colorF2 : "rgba(253,6,6,0.34)"
     },
     Big   : {
         max: Oforce/4,
         min: (Oforce/8)+1,
-        color : "#ffae00"
+        color : "#ffae00",
+        colorF : "rgba(255,174,0,0.65)",
+        colorF2 : "rgba(255,174,0,0.34)"
     },
     Small : {
         max: Oforce/8,
         min: (Oforce/16)+1,
-        color : "#397eff"
+        color : "#397eff",
+        colorF : "rgba(57,126,255,0.65)",
+        colorF2 : "rgba(57,126,255,0.34)"
     },
     Mini  : {
         max: Oforce/16,
-        min: 1,
-        color : "#51f69e"
+        min: Oforce/32,
+        color : "#00fa74",
+        colorF : "rgba(0,250,116,0.65)",
+        colorF2 : "rgba(0,250,116,0.34)",
     }
 }
+let LOnum = Math.floor(InitialOrbsNumber/20);
+let BOnum = Math.floor(InitialOrbsNumber/5);
+let SOnum = Math.floor(InitialOrbsNumber/4);
+let MOnum = Math.floor(InitialOrbsNumber/2);
+
+LON.value = LOnum;
+BON.value = BOnum;
+MON.value = MOnum;
+SON.value = SOnum;
+
+let FieldsDevControl = false;
 
 // more life = more force = less speed
 class Orb {
@@ -34,6 +72,9 @@ class Orb {
     speed = 0;
     type = Oforces.Big;
     ctx = canvasLab6.getContext("2d");
+    obj = new Path2D();
+    objF = new Path2D();
+    objF2 = new Path2D();
     radius = 0;
     x = 0;
     y = 0;
@@ -45,6 +86,7 @@ class Orb {
         this.id = id;
         this.life = life;
         this.ctx = ctx;
+        // this.ctx = canvasLab6.getContext("2d");;
         this.obj = new Path2D()
         this.isClicked = false;
 
@@ -62,15 +104,15 @@ class Orb {
             this.type = Oforces.Large;
             return;
         }
-        if(this.life <= (Olife/2) && this.life > (Olife/4)){
+        if(this.life <= (Olife/2)+1 && this.life > (Olife/4)){
             this.type = Oforces.Big;
             return;
         }
-        if(this.life <= (Olife/4) && this.life > (Olife/8)){
+        if(this.life <= (Olife/4)+1 && this.life > (Olife/8)){
             this.type = Oforces.Small;
             return;
         }
-        if(this.life <= (Olife/8) && this.life > (Olife/16)){
+        if(this.life <= (Olife/8)+1 && this.life > (Olife/16)){
             this.type = Oforces.Mini;
         }
     }
@@ -80,27 +122,39 @@ class Orb {
         );
     }
     calculateSpeed(){
-        this.speed = Oforce - this.force;
+        this.speed = ((Oforce - this.force)/10);
 
         this.vx = this.calculateVector();
         this.vy = this.calculateVector();
     }
     calculateVector(){
-        return Math.floor((Math.random() * (Oforce - this.speed)) + this.speed);
+        return Math.floor((Math.random() * ((Oforce/20) - this.speed)) + this.speed);
     }
     setRandomPosition(){
         this.x = Math.floor(
-            (Math.random() * (canvasLab6.width - this.radius)) + this.radius
+            (Math.random() * ((canvasLab6.width - this.radius) - this.radius)) + this.radius
         );
         this.y = Math.floor(
-            (Math.random() * (canvasLab6.height - this.radius)) + this.radius
+            (Math.random() * ((canvasLab6.height - this.radius) - this.radius)) + this.radius
         );
     }
 
     draw(){
-
         this.obj = new Path2D();
+        this.objF = new Path2D();
+        this.objF2 = new Path2D();
+
         this.obj.arc(this.x,this.y,this.radius,0,Math.PI*2,true);
+        this.objF.arc(this.x,this.y,this.force+this.radius,0,Math.PI*2,true);
+        this.objF2.arc(this.x,this.y,this.force+this.life ,0,Math.PI*2,true);
+        if(FieldsDevControl){
+            this.ctx.fillStyle = this.type.colorF2;
+            this.ctx.fill(this.objF2);
+
+            this.ctx.fillStyle = this.type.colorF;
+            this.ctx.fill(this.objF);
+        }
+
         this.ctx.fillStyle = this.type.color;
         this.ctx.fill(this.obj);
     }
@@ -130,15 +184,34 @@ class Env{
     constructor() {
         this.dom = canvasLab6;
         this.ctx = this.dom.getContext("2d");
-        this.generateOrbs()
+        // this.generateOrbs()
     }
 
     generateOrbs(){
-        for(this.orbsId; this.orbsId<10;this.orbsId++){
-            //todo timeout/ async gen orbs?
-            let l = Math.floor(Math.random() * (Olife-(Olife/32)) + (Olife/32));
-            this.Orbs.push(new Orb(this.orbsId, l, this.ctx))
-            // this.Orbs.push(new Orb(this.orbsId, 20, this.ctx))
+        // for(this.orbsId; this.orbsId<InitialOrbsNumber;this.orbsId++){
+        //     let l = Math.floor(Math.random() * (Olife-(Olife/32)) + (Olife/32));
+        //     this.Orbs.push(new Orb(this.orbsId, l, this.ctx))
+        //     // this.Orbs.push(new Orb(this.orbsId, 20, this.ctx))
+        // }
+        for(let i = 0; i < LOnum; i++){
+            let l = Math.floor(Math.random() * (Olife-(Olife/2)) + (Olife/2));
+            this.Orbs.push(new Orb(this.orbsId, l, this.ctx));
+            this.orbsId++;
+        }
+        for(let i = 0; i < BOnum; i++){
+            let l = Math.floor(Math.random() * ((Olife/2)-(Olife/4)) + (Olife/4));
+            this.Orbs.push(new Orb(this.orbsId, l, this.ctx));
+            this.orbsId++;
+        }
+        for(let i = 0; i < SOnum; i++){
+            let l = Math.floor(Math.random() * ((Olife/4)-(Olife/8)) + (Olife/8));
+            this.Orbs.push(new Orb(this.orbsId, l, this.ctx));
+            this.orbsId++;
+        }
+        for(let i = 0; i < MOnum; i++){
+            let l = Math.floor(Math.random() * ((Olife/8)-(Olife/16)) + (Olife/16));
+            this.Orbs.push(new Orb(this.orbsId, l, this.ctx));
+            this.orbsId++;
         }
     }
 
@@ -151,79 +224,110 @@ class Env{
     }
 
 }
-class Vector{
-    speed = 2;
-    direction = {
-        //prawy góra
-        x: 2,
-        y: 2,
-    }
-}
+
+
+
+
 
 let lab6Env = new Env()
 
 function drawEnv(){
     lab6Env.ctx.clearRect(0, 0, lab6Env.dom.width, lab6Env.dom.height);
-    lab6Env.reduceOrbs();
+    // lab6Env.reduceOrbs();
     lab6Env.Orbs.forEach((x)=>{
         lab6Env.Orbs.forEach((y)=>{
             if(y.id !== x.id){
                 let ax,ay,res;
                 res = 0;
-                if(y.y === x.y){
-                    res = y.y - x.y;
-
-                }
-                else if(y.x === x.x){
-                    res = y.x - x.x;
-                }
-                else{
+                // if(y.y === x.y){
+                //     res = y.y - x.y;
+                //
+                // }
+                // else if(y.x === x.x){
+                //     res = y.x - x.x;
+                // }
+                // else{
                     ax = y.x - x.x;
-                    ay = y.y - y.x;
+                    ay = y.y - x.y;
                     res = Math.pow(ax,2) + Math.pow(ay,2);
-                    res = Math.sqrt(res)
-                }
+                    res = Math.sqrt(res)+x.radius
+                // }
                 if(res<0)res *= -1;
 
                 // if(res <= x.force && res <= y.force){
-                if(res <= y.y){
+                if(res <= ((x.force+x.life)+(y.force+y.life))){
                     y.ctx.beginPath();
-                    y.ctx.moveTo(x.x,x.y)
-                    y.ctx.lineTo(y.x,y.y)
-                    y.ctx.closePath()
+                    y.ctx.moveTo(x.x,x.y);
+                    y.ctx.lineTo(y.x,y.y);
+                    y.ctx.closePath();
                     y.ctx.lineWidth = 4;
                     y.ctx.lineJoin = "round"
                     y.ctx.stroke()
+                    // console.log(y.id + " connected with " + x.id +" res= " + res + " y force = " + y.force)
                 }
             }
         })
         x.draw()
         x.move()
     })
-    // lab6Env.Orbs.forEach(x=>x.move())
     lab6Env.raf = window.requestAnimationFrame(drawEnv);
 }
 
-
-// lab6Env.dom.addEventListener("click",()=>{
+//todo: fix mouse events
+canvasLab6.addEventListener("mousemove",(e)=>{
+    // let Mctx = canvasLab6.getContext("2d");
+    // Mctx.ctx.clearRect(0, 0, lab6Env.dom.width, lab6Env.dom.height);
+    let ob = new Path2D();
+    ob.arc(e.offsetX,e.offsetY,MF,0,Math.PI*2,false);
+    lab6Env.ctx.fillStyle = "rgba(205,73,252,0.45)";
+    lab6Env.ctx.fill(ob)
+})
+MForce.addEventListener("input",(e)=>{
+    MF = e.target.value;
+})
+c6Start.addEventListener("click",()=>{
+    if(lab6Env.raf > 0){
+        window.cancelAnimationFrame(lab6Env.raf)
+    }
+    lab6Env = new Env();
+    lab6Env.generateOrbs();
     lab6Env.raf = window.requestAnimationFrame(drawEnv);
-// })
-
-// lab6Env.dom.addEventListener("click",(e)=>{
-//     lab6Env.Orbs.forEach((x)=>{
-//         if(lab6Env.ctx.isPointInPath(x.obj,e.offsetX,e.offsetY)){
-//             // x.isClicked = true;
-//             console.log(lab6Env.ctx.isPointInPath(x.obj,e.offsetX,e.offsetY))
-//         }
-//         else{
-//             console.log(lab6Env.ctx.isPointInPath(x.obj,e.offsetX,e.offsetY))
-//         }
-//     })
-// })
-// lab6Env.dom.addEventListener("mouseout",()=>{
-//     window.cancelAnimationFrame(()=>{
-//         lab6Env.raf;
-//     })
-// });
-
-// drawEnv()
+})
+c6Stop.addEventListener("click",()=>{
+    window.cancelAnimationFrame(lab6Env.raf);
+})
+c6rangeW.addEventListener("input",(e)=>{
+    canvasLab6.width = e.target.value;
+    Olife = canvasLab6.width/10;
+    Oforce = Olife/2;
+    wV.innerHTML = "W: "+ e.target.value;
+})
+c6rangeH.addEventListener("input",(e)=>{
+    canvasLab6.height = e.target.value;
+    hV.innerHTML = "H: "+ e.target.value;
+})
+fieldsV.addEventListener("click",()=>{
+    if(fieldsV.checked){
+        FieldsDevControl = true;
+        return;
+    }
+    FieldsDevControl = false;
+})
+orbsNumber.addEventListener("input",(e)=>{
+    InitialOrbsNumber = e.target.value;
+    LOnum = Math.floor(InitialOrbsNumber/20);
+    LON.value = LOnum;
+    BOnum = Math.floor(InitialOrbsNumber/5);
+    BON.value = BOnum;
+    SOnum = Math.floor(InitialOrbsNumber/4);
+    SON.value = SOnum;
+    MOnum = Math.floor(InitialOrbsNumber/2);
+    if((LOnum+BOnum+SOnum+MOnum) < InitialOrbsNumber){
+        MOnum += InitialOrbsNumber-(LOnum+BOnum+SOnum+MOnum)
+    }
+    MON.value = MOnum;
+})
+FDiv.addEventListener("input",(e)=>{
+    FdivNum = e.target.value;
+    Oforce = Olife/FdivNum;
+})
