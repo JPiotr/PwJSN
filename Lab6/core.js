@@ -1,66 +1,111 @@
 const canvasLab6 = document.querySelector("#lab6Canvas");
-let Olife = 200;
+const Olife = 400;
+const Oforce = 10;
 
+const Oforces = {
+    Large : {
+        max: Oforce,
+        min: (Oforce/4)+1,
+        color : "#fd0606"
+    },
+    Big   : {
+        max: Oforce/4,
+        min: (Oforce/8)+1,
+        color : "#ffae00"
+    },
+    Small : {
+        max: Oforce/8,
+        min: (Oforce/16)+1,
+        color : "#397eff"
+    },
+    Mini  : {
+        max: Oforce/16,
+        min: 1,
+        color : "#51f69e"
+    }
+}
+
+// more life = more force = less speed
 class Orb {
     //logic
     id = 0;
     life = 0;
-
     force = 0;
-
+    speed = 0;
+    type = Oforces.Big;
     ctx = canvasLab6.getContext("2d");
-
     radius = 0;
     x = 0;
     y = 0;
-
     vx = 0;
     vy = 0;
-
     isClicked = false;
-    //ui
-    //todo: colors array
-    color = "#f66"
 
     constructor(id, life, ctx) {
         this.id = id;
         this.life = life;
         this.ctx = ctx;
         this.obj = new Path2D()
-
         this.isClicked = false;
-        // this.force = Math.floor(Math.sqrt(this.life)/2);
-        //todo: poprawa warunków
-        if(this.life >= Olife/2 && this.life < Olife){
-            this.color = "#0AF"
-            this.force = Math.floor(Math.sqrt(this.life)/8)
-        }
-        if(this.life >= Olife/4 && this.life < Olife/2){
-            this.color = "#A0F"
-            this.force = Math.floor(Math.sqrt(this.life)/4)
-        }
+
+        this.setType();
+        this.calculateForce();
 
         this.radius = this.life/2;
-        this.x = canvasLab6.width/2;
-        this.y = canvasLab6.height/2;
-        // Math.floor(Math.random() * ((this.force/10)-10) + 10)
-        while(this.vx == 0){
-            this.vx = Math.floor(Math.random() * ((this.force)+(this.force)));
-        }
-        while(this.vy == 0){
-            this.vy = Math.floor(Math.random() * ((this.force)+(this.force)));
-        }
 
+        this.setRandomPosition();
+        this.calculateSpeed();
+
+    }
+    setType(){
+        if(this.life <= Olife && this.life > (Olife/2)){
+            this.type = Oforces.Large;
+            return;
+        }
+        if(this.life <= (Olife/2) && this.life > (Olife/4)){
+            this.type = Oforces.Big;
+            return;
+        }
+        if(this.life <= (Olife/4) && this.life > (Olife/8)){
+            this.type = Oforces.Small;
+            return;
+        }
+        if(this.life <= (Olife/8) && this.life > (Olife/16)){
+            this.type = Oforces.Mini;
+        }
+    }
+    calculateForce(){
+        this.force = Math.floor(
+            (Math.random() * (this.type.max - this.type.min)) + this.type.min
+        );
+    }
+    calculateSpeed(){
+        this.speed = Oforce - this.force;
+
+        this.vx = this.calculateVector();
+        this.vy = this.calculateVector();
+    }
+    calculateVector(){
+        return Math.floor((Math.random() * (Oforce - this.speed)) + this.speed);
+    }
+    setRandomPosition(){
+        this.x = Math.floor(
+            (Math.random() * (canvasLab6.width - this.radius)) + this.radius
+        );
+        this.y = Math.floor(
+            (Math.random() * (canvasLab6.height - this.radius)) + this.radius
+        );
     }
 
     draw(){
 
         this.obj = new Path2D();
         this.obj.arc(this.x,this.y,this.radius,0,Math.PI*2,true);
-        this.ctx.fillStyle = this.color;
+        this.ctx.fillStyle = this.type.color;
         this.ctx.fill(this.obj);
     }
     move(){
+        //todo: fix border collision
         this.x += this.vx;
         this.y += this.vy;
         if (this.y + this.vy > canvasLab6.height - this.radius || this.y + this.vy < this.radius) {
@@ -89,10 +134,11 @@ class Env{
     }
 
     generateOrbs(){
-        for(this.orbsId; this.orbsId<20;this.orbsId++){
+        for(this.orbsId; this.orbsId<10;this.orbsId++){
             //todo timeout/ async gen orbs?
-            let l = Math.floor(Math.random() * (Olife-(Olife/2)) + (Olife/4));
+            let l = Math.floor(Math.random() * (Olife-(Olife/32)) + (Olife/32));
             this.Orbs.push(new Orb(this.orbsId, l, this.ctx))
+            // this.Orbs.push(new Orb(this.orbsId, 20, this.ctx))
         }
     }
 
@@ -128,7 +174,7 @@ function drawEnv(){
                     res = y.y - x.y;
 
                 }
-                if(y.x === x.x){
+                else if(y.x === x.x){
                     res = y.x - x.x;
                 }
                 else{
@@ -139,7 +185,8 @@ function drawEnv(){
                 }
                 if(res<0)res *= -1;
 
-                if(res < y.y){
+                // if(res <= x.force && res <= y.force){
+                if(res <= y.y){
                     y.ctx.beginPath();
                     y.ctx.moveTo(x.x,x.y)
                     y.ctx.lineTo(y.x,y.y)
