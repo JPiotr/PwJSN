@@ -202,11 +202,57 @@ class Orb {
                 this.ctx.closePath();
                 this.ctx.lineWidth = 2;
                 this.ctx.lineJoin = "round"
-                this.ctx.stroke()
+                this.ctx.stroke();
+                //test
+                if(this.id === -1){
+                    this.interact(ao)
+                }
             }
         }
     }
 
+    interact(ao = new Orb(-2,10,null)){
+        if(this.force > ao.force){
+            if(ao.x > this.x){
+                ao.vx += this.force/8;
+            }
+            else{
+                ao.vx -= this.force/8;
+            }
+            if(ao.y > this.y){
+                ao.vy += this.force/8;
+            }
+            else {
+                ao.vy -= this.force / 8;
+            }
+            setTimeout(()=>{
+                ao.calculateSpeed()
+            },100)
+            //second solution
+            // if(this.force > ao.force){
+            //     if(ao.x < this.x+this.radius || ao.x > this.x){
+            //         // ao.vx += this.force/8;
+            //         ao.vx = -ao.vx
+            //     }
+            //     else{
+            //         // ao.vx -= this.force/8;
+            //     }
+            //     if(ao.y < this.y+this.radius || ao.y > this.y){
+            //         // ao.vy += this.force/8;
+            //         ao.vy = -ao.vy;
+            //     }
+            //     else {
+            //         // ao.vy -= this.force / 8;
+            //     }
+            //     // setTimeout(()=>{
+            //     //     ao.calculateSpeed()
+            //     // },100)
+        }
+        else{
+            this.vx += ao.x/2;
+            this.vy += ao.y/2;
+        }
+    }
 }
 class Env{
     //logic
@@ -278,8 +324,10 @@ function drawEnv(){
     lab6Env.Orbs.forEach((x)=>{
         lab6Env.Orbs.forEach((y)=>{
             x.detectAnotherOrb(y)
+            // x.interact(y)
         })
         MOrb.detectAnotherOrb(x)
+        // MOrb.interact(x)
         x.draw()
         x.move()
     })
@@ -289,7 +337,7 @@ function drawEnv(){
     lab6Env.raf = window.requestAnimationFrame(drawEnv);
 }
 
-//todo: fix mouse events
+//todo: mouse clicked in/out
 canvasLab6.addEventListener("mousemove",(e)=>{
     MOrb.x = e.offsetX;
     MOrb.y = e.offsetY;
