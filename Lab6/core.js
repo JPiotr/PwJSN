@@ -51,9 +51,9 @@ const Oforces = {
         colorF2 : "rgba(0,250,116,0.34)",
     },
     Mouse : {
-        color : "#1dff04",
-        colorF : "rgba(4,255,226,0.65)",
-        colorF2 : "rgba(255,4,196,0.34)"
+        color : "rgb(29,255,4)",
+        colorF : "rgba(4,255,226,0.22)",
+        colorF2 : "rgba(255,4,196,0.21)"
     }
 }
 let LOnum = Math.floor(InitialOrbsNumber/20);
@@ -85,6 +85,7 @@ class Orb {
     y = 0;
     vx = 0;
     vy = 0;
+    lastInteractedForceValue = 0;
     isClicked = false;
 
     constructor(id, life, ctx) {
@@ -164,7 +165,6 @@ class Orb {
         this.ctx.fill(this.obj);
     }
     move(){
-        //todo: fix border collision
         this.x += this.vx;
         this.y += this.vy;
         if (this.y + this.vy > canvasLab6.height - this.radius || this.y + this.vy < this.radius) {
@@ -179,32 +179,25 @@ class Orb {
         if(ao.id !== this.id){
             let ax,ay,res;
             res = 0;
-            // if(y.y === x.y){
-            //     res = y.y - x.y;
-            //
-            // }
-            // else if(y.x === x.x){
-            //     res = y.x - x.x;
-            // }
-            // else{
+
             ax = ao.x - this.x;
             ay = ao.y - this.y;
             res = Math.pow(ax,2) + Math.pow(ay,2);
-            res = Math.sqrt(res)+this.radius
-            // }
-            if(res<0)res *= -1;
+            res = Math.sqrt(res)+this.force
 
-            // if(res <= x.force && res <= y.force){
-            if(res <= ((this.force+this.life)+(ao.force+ao.life))){
+            if(res<0)res *= -1;
+            // if(res <= ((this.force+this.life)+(ao.force+ao.life))){
+            if(res <= ((this.force+this.life)+(ao.force+ao.life))){ //todo: > Y??
                 this.ctx.beginPath();
                 this.ctx.moveTo(this.x,this.y);
-                this.ctx.lineTo(ao.x,ao.y);
+                this.ctx.lineTo(ao.x+this.vx,ao.y+this.vy);
                 this.ctx.closePath();
                 this.ctx.lineWidth = 2;
                 this.ctx.lineJoin = "round"
                 this.ctx.stroke();
                 //test
-                if(this.id === -1){
+                if(this.id === -1 && this.isClicked){
+                    //todo: interact development
                     this.interact(ao)
                 }
             }
@@ -213,43 +206,30 @@ class Orb {
 
     interact(ao = new Orb(-2,10,null)){
         if(this.force > ao.force){
-            // if(ao.x > this.x){
-            //     ao.vx += this.force/8;
-            // }
-            // else{
-            //     ao.vx -= this.force/8;
-            // }
-            // if(ao.y > this.y){
-            //     ao.vy += this.force/8;
-            // }
-            // else {
-            //     ao.vy -= this.force / 8;
-            // }
-            // setTimeout(()=>{
-            //     ao.calculateSpeed()
-            // },100)
-            //second solution
-            if(ao.x < this.x+this.radius || ao.x > this.x){
-                // ao.vx += this.force/8;
-                ao.vx = -ao.vx
+            ao.lastInteractedForceValue = (this.force-ao.force)/25;
+
+            if(ao.x < this.x+this.radius+this.force || ao.x+ao.vx > this.x){
+                ao.vx = -(ao.vx+ao.lastInteractedForceValue);
+                // ao.vx = -(ao.vx);
             }
-            else{
-                // ao.vx -= this.force/8;
-            }
-            if(ao.y < this.y+this.radius || ao.y > this.y){
-                // ao.vy += this.force/8;
-                ao.vy = -ao.vy;
-            }
-            else {
-                // ao.vy -= this.force / 8;
+            if(ao.y < this.y+this.radius+this.force || ao.y+ao.vy > this.y){
+                ao.vy = -(ao.vy+ao.lastInteractedForceValue);
+                // ao.vy = -(ao.vy);
             }
             // setTimeout(()=>{
-            //     ao.calculateSpeed()
-            // },100)
-        }
-        else{
-            this.vx += ao.x/2;
-            this.vy += ao.y/2;
+            //     if(ao.vx < 0){
+            //         ao.vx = ao.vx+ao.lastInteractedForceValue;
+            //     }
+            //     else{
+            //         ao.vx = ao.vx-ao.lastInteractedForceValue
+            //     }
+            //     if(ao.vy < 0){
+            //         ao.vy = ao.vy+ao.lastInteractedForceValue;
+            //     }
+            //     else{
+            //         ao.vy = ao.vy-ao.lastInteractedForceValue
+            //     }
+            // },1000)
         }
     }
 }
@@ -296,20 +276,12 @@ class Env{
         }
     }
 
-    reduceOrbs(){
-        this.Orbs.forEach(x=>{
-            if(x.isClicked){
-                this.Orbs.splice(x.id,1)
-            }
-        })
-    }
-
 }
 
 
 
 //mouse Orb
-let MOrb = new Orb(-1,20,canvasLab6.getContext("2d"));
+let MOrb = new Orb(-1,50,canvasLab6.getContext("2d"));
 MOrb.type = Oforces.Mouse;
 MOrb.force = parseInt(MF)
 MOrb.vx = 0;
@@ -319,7 +291,6 @@ let lab6Env = new Env()
 
 function drawEnv(){
     lab6Env.ctx.clearRect(0, 0, lab6Env.dom.width, lab6Env.dom.height);
-    // lab6Env.reduceOrbs();
     lab6Env.Orbs.forEach((x)=>{
         lab6Env.Orbs.forEach((y)=>{
             x.detectAnotherOrb(y)
@@ -341,6 +312,29 @@ canvasLab6.addEventListener("mousemove",(e)=>{
     MOrb.x = e.offsetX;
     MOrb.y = e.offsetY;
     MOrb.force = parseInt(MF);
+})
+canvasLab6.addEventListener("mousedown",()=>{
+    MOrb.isClicked = true;
+})
+canvasLab6.addEventListener("mouseup",()=>{
+    MOrb.isClicked = false;
+})
+canvasLab6.addEventListener("click",(e)=>{
+
+    for (let i = 0; i < lab6Env.Orbs.length; i++) {
+        if(lab6Env.Orbs[i].ctx.isPointInPath(lab6Env.Orbs[i].objF2,e.offsetX,e.offsetY)){
+            // x.isClicked = true;
+            lab6Env.Orbs.splice(i,1);
+            let oN = lab6Env.Orbs[lab6Env.Orbs.length-1].id;
+            let l = Math.floor(Math.random() * (Olife-(Olife/32)) + (Olife/32));
+            lab6Env.Orbs.push(new Orb(oN+1, l, lab6Env.ctx))
+            l = Math.floor(Math.random() * (Olife-(Olife/32)) + (Olife/32));
+            lab6Env.Orbs.push(new Orb(oN+2, l, lab6Env.ctx))
+
+            orbsNumber.value = oN+2;
+        }
+    }
+
 })
 MForce.addEventListener("input",(e)=>{
     MF = e.target.value;
