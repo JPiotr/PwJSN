@@ -49,6 +49,11 @@ const Oforces = {
         color : "#00fa74",
         colorF : "rgba(0,250,116,0.65)",
         colorF2 : "rgba(0,250,116,0.34)",
+    },
+    Mouse : {
+        color : "#1dff04",
+        colorF : "rgba(4,255,226,0.65)",
+        colorF2 : "rgba(255,4,196,0.34)"
     }
 }
 let LOnum = Math.floor(InitialOrbsNumber/20);
@@ -170,6 +175,37 @@ class Orb {
         }
     }
 
+    detectAnotherOrb(ao){
+        if(ao.id !== this.id){
+            let ax,ay,res;
+            res = 0;
+            // if(y.y === x.y){
+            //     res = y.y - x.y;
+            //
+            // }
+            // else if(y.x === x.x){
+            //     res = y.x - x.x;
+            // }
+            // else{
+            ax = ao.x - this.x;
+            ay = ao.y - this.y;
+            res = Math.pow(ax,2) + Math.pow(ay,2);
+            res = Math.sqrt(res)+this.radius
+            // }
+            if(res<0)res *= -1;
+
+            // if(res <= x.force && res <= y.force){
+            if(res <= ((this.force+this.life)+(ao.force+ao.life))){
+                this.ctx.beginPath();
+                this.ctx.moveTo(this.x,this.y);
+                this.ctx.lineTo(ao.x,ao.y);
+                this.ctx.closePath();
+                this.ctx.lineWidth = 2;
+                this.ctx.lineJoin = "round"
+                this.ctx.stroke()
+            }
+        }
+    }
 
 }
 class Env{
@@ -227,7 +263,12 @@ class Env{
 
 
 
-
+//mouse Orb
+let MOrb = new Orb(-1,20,canvasLab6.getContext("2d"));
+MOrb.type = Oforces.Mouse;
+MOrb.force = parseInt(MF)
+MOrb.vx = 0;
+MOrb.vy = 0;
 
 let lab6Env = new Env()
 
@@ -236,51 +277,23 @@ function drawEnv(){
     // lab6Env.reduceOrbs();
     lab6Env.Orbs.forEach((x)=>{
         lab6Env.Orbs.forEach((y)=>{
-            if(y.id !== x.id){
-                let ax,ay,res;
-                res = 0;
-                // if(y.y === x.y){
-                //     res = y.y - x.y;
-                //
-                // }
-                // else if(y.x === x.x){
-                //     res = y.x - x.x;
-                // }
-                // else{
-                    ax = y.x - x.x;
-                    ay = y.y - x.y;
-                    res = Math.pow(ax,2) + Math.pow(ay,2);
-                    res = Math.sqrt(res)+x.radius
-                // }
-                if(res<0)res *= -1;
-
-                // if(res <= x.force && res <= y.force){
-                if(res <= ((x.force+x.life)+(y.force+y.life))){
-                    y.ctx.beginPath();
-                    y.ctx.moveTo(x.x,x.y);
-                    y.ctx.lineTo(y.x,y.y);
-                    y.ctx.closePath();
-                    y.ctx.lineWidth = 4;
-                    y.ctx.lineJoin = "round"
-                    y.ctx.stroke()
-                    // console.log(y.id + " connected with " + x.id +" res= " + res + " y force = " + y.force)
-                }
-            }
+            x.detectAnotherOrb(y)
         })
+        MOrb.detectAnotherOrb(x)
         x.draw()
         x.move()
     })
+    // lab6Env.ctx.fillStyle = "rgba(234,60,238,0.42)";
+    // lab6Env.ctx.fill(MOrb)
+    MOrb.draw();
     lab6Env.raf = window.requestAnimationFrame(drawEnv);
 }
 
 //todo: fix mouse events
 canvasLab6.addEventListener("mousemove",(e)=>{
-    // let Mctx = canvasLab6.getContext("2d");
-    // Mctx.ctx.clearRect(0, 0, lab6Env.dom.width, lab6Env.dom.height);
-    let ob = new Path2D();
-    ob.arc(e.offsetX,e.offsetY,MF,0,Math.PI*2,false);
-    lab6Env.ctx.fillStyle = "rgba(205,73,252,0.45)";
-    lab6Env.ctx.fill(ob)
+    MOrb.x = e.offsetX;
+    MOrb.y = e.offsetY;
+    MOrb.force = parseInt(MF);
 })
 MForce.addEventListener("input",(e)=>{
     MF = e.target.value;
