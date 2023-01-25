@@ -213,40 +213,39 @@ class Orb {
 
     interact(ao = new Orb(-2,10,null)){
         if(this.force > ao.force){
-            if(ao.x > this.x){
-                ao.vx += this.force/8;
+            // if(ao.x > this.x){
+            //     ao.vx += this.force/8;
+            // }
+            // else{
+            //     ao.vx -= this.force/8;
+            // }
+            // if(ao.y > this.y){
+            //     ao.vy += this.force/8;
+            // }
+            // else {
+            //     ao.vy -= this.force / 8;
+            // }
+            // setTimeout(()=>{
+            //     ao.calculateSpeed()
+            // },100)
+            //second solution
+            if(ao.x < this.x+this.radius || ao.x > this.x){
+                // ao.vx += this.force/8;
+                ao.vx = -ao.vx
             }
             else{
-                ao.vx -= this.force/8;
+                // ao.vx -= this.force/8;
             }
-            if(ao.y > this.y){
-                ao.vy += this.force/8;
+            if(ao.y < this.y+this.radius || ao.y > this.y){
+                // ao.vy += this.force/8;
+                ao.vy = -ao.vy;
             }
             else {
-                ao.vy -= this.force / 8;
+                // ao.vy -= this.force / 8;
             }
-            setTimeout(()=>{
-                ao.calculateSpeed()
-            },100)
-            //second solution
-            // if(this.force > ao.force){
-            //     if(ao.x < this.x+this.radius || ao.x > this.x){
-            //         // ao.vx += this.force/8;
-            //         ao.vx = -ao.vx
-            //     }
-            //     else{
-            //         // ao.vx -= this.force/8;
-            //     }
-            //     if(ao.y < this.y+this.radius || ao.y > this.y){
-            //         // ao.vy += this.force/8;
-            //         ao.vy = -ao.vy;
-            //     }
-            //     else {
-            //         // ao.vy -= this.force / 8;
-            //     }
-            //     // setTimeout(()=>{
-            //     //     ao.calculateSpeed()
-            //     // },100)
+            // setTimeout(()=>{
+            //     ao.calculateSpeed()
+            // },100)
         }
         else{
             this.vx += ao.x/2;
