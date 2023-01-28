@@ -1,5 +1,5 @@
 let noteid = 1000;
-
+//fixme: lab7 will interupt this localmemo :(
 let localMemo = window.localStorage;
 const NoteContainer = document.querySelector("#lab4Notes");
 const Notes = [];
@@ -81,6 +81,13 @@ class NoteDOM {
 
         if(note != null){
             this.Note = note;
+            this.dom.style.backgroundColor = this.Note.color;
+            this.Note.date = new Date(Date.parse(this.Note.date)) ;
+            this.date.value = this.Note.date.getFullYear() +"-"+ this.Note.date.getMonth()+1 +"-"+ this.Note.date.getDate()
+            this.title.value = this.Note.title;
+            this.content.value = this.Note.content;
+            this.pin.checked = this.Note.pin;
+            this.tagsContainer.value = this.Note.tags.join(',').toString();
         }
         else {
             if(this.pin.checked){
@@ -99,17 +106,20 @@ class NoteDOM {
                     false,
                 )
             }
+            if(this.date.value == ""){
+                this.date.value = this.Note.date.getFullYear() +"-"+ this.Note.date.getMonth()+1 +"-"+ this.Note.date.getDate();
+            }
+            else{
+                this.Note.date = new Date(this.date.value);
+            }
+            this.Note.tags.push(...this.tagsContainer.value.split(','));
+            localMemo.setItem(this.Note.id,JSON.stringify(this.Note));
         }
         this.dom.id = "N"+this.Note.id;
-        if(this.date.value == ""){
-            this.date.value = this.Note.date.getFullYear() +"-"+ this.Note.date.getMonth()+1 +"-"+ this.Note.date.getDate();
-        }
-        else{
-            this.Note.date = new Date(this.date.value);
-        }
-        this.Note.tags.push(...this.tagsContainer.value.split(','));
+
 
         NoteContainer.append(this.dom);
+
     }
 }
 
@@ -159,10 +169,24 @@ function searchData(){
 }
 function deleteNote(){
     let note = Notes.findIndex(x => x.dom.id == this.parentElement.parentElement.id);
+    localMemo.removeItem(Notes.at(Notes.findIndex(x => x.dom.id == this.parentElement.parentElement.id)).Note.id.toString());
     Notes.splice(note,1);
     updateNotesUI()
 }
-function saveNote(Note) {
+function loadNotes() {
+    // window.localStorage.clear()
+    for (let localMemoKey=0;localMemoKey < localMemo.length; localMemoKey++) {
+        Notes.push(
+            new NoteDOM(
+                JSON.parse(
+                    localMemo.getItem(
+                        localMemo.key(localMemoKey)
+                    )
+                )
+            )
+        );
+    }
+    updateNotesUI();
 
 }
 
@@ -188,4 +212,4 @@ function saveNote(Note) {
 //     updateNotesUI()
 // }
 
-//todo: add some async save and load notes
+loadNotes();
