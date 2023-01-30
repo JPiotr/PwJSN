@@ -281,12 +281,33 @@ audio{
     border-radius: 50px;
 }
 .Wicon{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 40%;
     height: 100%;
     border-right: solid rebeccapurple 1px;
 }
+.Time{
+    align-self: center;
+}
 
 .WContent{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
     width: 60%;
     height: 100%;
+}
+.Place{
+    align-self: center;
+}
+
+.WContent > div {
+    padding-left: 10px;
+}
+hr{
+    border: solid black 1px;
+    width: inherit;
 }
