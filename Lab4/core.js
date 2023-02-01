@@ -87,7 +87,11 @@ class NoteDOM {
             this.title.value = this.Note.title;
             this.content.value = this.Note.content;
             this.pin.checked = this.Note.pin;
+            try{
             this.tagsContainer.value = this.Note.tags.join(',').toString();
+            }
+            catch (e){}
+
         }
         else {
             if(this.pin.checked){
@@ -168,23 +172,25 @@ function searchData(){
     }
 }
 function deleteNote(){
-    let note = Notes.findIndex(x => x.dom.id == this.parentElement.parentElement.id);
-    localMemo.removeItem(Notes.at(Notes.findIndex(x => x.dom.id == this.parentElement.parentElement.id)).Note.id.toString());
+    let note = Notes.findIndex(x => x.dom.id === this.parentElement.parentElement.id);
+    localMemo.removeItem(Notes.at(Notes.findIndex(x => x.dom.id === this.parentElement.parentElement.id)).Note.id.toString());
     Notes.splice(note,1);
     updateNotesUI()
 }
 function loadNotes() {
     // window.localStorage.clear()
     for (let localMemoKey=0;localMemoKey < localMemo.length; localMemoKey++) {
-        Notes.push(
-            new NoteDOM(
-                JSON.parse(
-                    localMemo.getItem(
-                        localMemo.key(localMemoKey)
+        if(localMemo.key(localMemoKey) !== "WeatherHis"){
+            Notes.push(
+                new NoteDOM(
+                    JSON.parse(
+                        localMemo.getItem(
+                            localMemo.key(localMemoKey)
+                        )
                     )
                 )
-            )
-        );
+            );
+        }
     }
     updateNotesUI();
 
