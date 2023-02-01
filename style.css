@@ -293,6 +293,17 @@ audio{
     align-self: center;
 }
 
+.Wcard > button{
+    align-self: center;
+    height: 20%;
+    display: none;
+}
+.Wcard:hover > button{
+    align-self: center;
+    height: 20%;
+    display: block;
+}
+
 .WContent{
     display: flex;
     justify-content: center;
