@@ -16,4 +16,4 @@
 - [ ] Wykres pogody godzinowej (np. najblizsze 12 godzin) dla wybranej przez użytkownika lokalizacji.
 - [ ] Podawanie miast z autouzupełnianiem z api.
 
-> <b>Klucz api jest wyłączony</b>
+> # <b>Klucz api jest wyłączony</b>
