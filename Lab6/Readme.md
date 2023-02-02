@@ -47,7 +47,8 @@
 - [x] Dodaj przyciski Start i Reset
 - [x] Zbadaj ile jesteś w stanie wyświetlić kulek (stabilne 60fps) przy założeniu Y = 20% szerokości ekranu  
 > w przypadku mojej maszyny było to 180 kulek, max jaki można wygenerować na starcie aplikacji. 
-X, Y jest definiowane przez użytkownika (pola tekstowe lub np. suwaki - wstępnie uzupełnione)
+
+- [x] X, Y jest definiowane przez użytkownika (pola tekstowe lub np. suwaki - wstępnie uzupełnione)
 
 ### Wersja Task Failed Successfully: 
 - [x] Kursor myszy odpycha/przyciąga znajdujące się w pobliżu kulki. Siła odpychania/przyciągania jest konfigurowalna.
