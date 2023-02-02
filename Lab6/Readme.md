@@ -56,14 +56,14 @@
 > Po przez przytrzymanie PPM realizowane są dwie funkcje: 
 > - Jeśli kursor jest w bezruchu (lub jej prętkość jest mniejsza niż innej kulki) obija.
 > - Jeśli najedziemy na kulkę o mniejszej sile, wtedy zostaje ona "przyciągnięta". 
-> Jej siłę (standardowo) nie widoczną siłę definiujemy po przez suwak: 
+> Siłę (standardowo) nie widoczną definiujemy po przez suwak: 
 > 
 > ![image](https://user-images.githubusercontent.com/48734419/216425319-4028dca9-5f20-4f84-adf3-55b4a7068e4f.png)
 > Aby pokazać siłę kulek należy zaznaczyć opcję "Fields Visible":
 > 
 > ![image](https://user-images.githubusercontent.com/48734419/216425553-ea5b8e09-96c8-4818-a9f8-ca7ea731a354.png)
 >
-> Dodatkowo można zmienić współczynnik siły, im większy współczynnik tym "trudniej" kulkom się poruszać 😏
+> Dodatkowo można zmienić współczynnik siły (grawitację) 😏
 > ![image](https://user-images.githubusercontent.com/48734419/216426290-5edd995d-01e8-4fd2-9872-ab8ccb5b2737.png)
 
 
