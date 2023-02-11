@@ -3,7 +3,7 @@ const searchBtn = document.querySelector('#lab7searchBtn');
 const search = document.querySelector('#lab7search');
 
 let cardNow = document.querySelector('#cardNow');
-
+window.localStorage.setItem("WeatherHis"," ");
 let GeoDataHis = []
 //api key af27394607243e5bdafa84c6d23ddee5
 new Chart(ctx, {
